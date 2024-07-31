@@ -1,0 +1,16 @@
+python-dotenv
+--extra-index-url https://download.pytorch.org/whl/cu113
+torch
+pytube
+yt-dlp
+mirdata
+mido
+git+https://github.com/craffel/mir_eval.git
+git+https://github.com/katsura-jp/pytorch-cosine-annealing-with-warmup.git
+lightning>=2.2.1
+pytest
+deprecated
+librosa
+einops
+transformers
+wandb
