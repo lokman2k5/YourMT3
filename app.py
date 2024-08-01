@@ -2,15 +2,24 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'amt/src')))
 
+import subprocess
+from typing import Tuple, Dict, Literal
+from ctypes import ArgumentError
 
+from html_helper import *
+from model_helper import *
+
+from pytube import YouTube
+import torch
+import torchaudio
 import glob
 import gradio as gr
 
-from model_helper import *
+
 
 # @title Load Checkpoint
 model_name = 'YPTF.MoE+Multi (noPS)' # @param ["YMT3+", "YPTF+Single (noPS)", "YPTF+Multi (PS)", "YPTF.MoE+Multi (noPS)", "YPTF.MoE+Multi (PS)"]
-precision = '16' # @param ["32", "bf16-mixed", "16"]
+precision = '16' if torch.cuda.is_available() else '32'# @param ["32", "bf16-mixed", "16"]
 project = '2024'
 
 if model_name == "YMT3+":
@@ -43,15 +52,7 @@ else:
 model = load_model_checkpoint(args=args)
 
 # @title GradIO helper
-import os
-import subprocess
-from typing import Tuple, Dict, Literal
-from ctypes import ArgumentError
 
-from html_helper import *
-
-from pytube import YouTube
-import torchaudio
 
 def prepare_media(source_path_or_url: os.PathLike,
                   source_type: Literal['audio_filepath', 'youtube_url'],
