@@ -127,7 +127,8 @@ YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c"]
 
 # theme = 'gradio/dracula_revamped' #'Insuz/Mocha' #gr.themes.Soft()
 # with gr.Blocks(theme=theme) as demo:
-theme = gr.themes.dracula_revamped(text_size="sm")
+theme = gr.Theme.from_hub("gradio/dracula_revamped")
+theme.text_md = '8px'
 with gr.Blocks(theme=theme) as demo:
 
     with gr.Row():
