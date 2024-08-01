@@ -1,8 +1,8 @@
 # @title Model helper
 import sys
 import os
-current_directory = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(current_directory, 'src'))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
+
 
 from collections import Counter
 import argparse
