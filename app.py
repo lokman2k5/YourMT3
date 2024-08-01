@@ -129,6 +129,7 @@ YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c"]
 # with gr.Blocks(theme=theme) as demo:
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
 theme.text_md = '9px'
+theme.text_lg = '11px'
 with gr.Blocks(theme=theme) as demo:
 
     with gr.Row():
