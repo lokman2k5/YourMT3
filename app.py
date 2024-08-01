@@ -18,7 +18,8 @@ with gr.Blocks(theme=theme) as demo:
         with gr.Column(scale=10):
             gr.Markdown(
             """
-            # YourMT3+: Bridging the Gap in Multi-instrument Music Transcription with Advanced Model Architectures and Cross-dataset Stem Augmentation
+            # YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
+            ## Sungkyun Chang, Emmanouil Benetos, Holger Kirchhoff and Simon Dixon, IEEE MLSP 2024 (to appear)
             """)
 
     with gr.Group():
