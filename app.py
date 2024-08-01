@@ -130,8 +130,26 @@ YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c"]
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
 theme.text_md = '9px'
 theme.text_lg = '11px'
-css = "body {background-image: url(r'https://gifer.com/embed/U7f2');}"
-# <iframe src="https://gifer.com/embed/U7f2" width=480 height=330.065 frameBorder="0" allowFullScreen></iframe><p><a href="https://gifer.com">via GIFER</a></p>
+css = """
+.gradio-container {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+"""
+
 with gr.Blocks(theme=theme, css=css) as demo:
 
     with gr.Row():
