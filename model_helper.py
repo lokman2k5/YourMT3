@@ -153,9 +153,9 @@ def transcribe(model, audio_info):
     pred_notes = mix_notes(pred_notes_in_file)  # This is the mixed notes from all channels
 
     # Write MIDI
-    write_model_output_as_midi(pred_notes, '/content/',
+    write_model_output_as_midi(pred_notes, './',
                               audio_info['track_name'], model.midi_output_inverse_vocab)
     t.stop(); t.print_elapsed_time("post processing");
-    midifile =  os.path.join('/content/model_output/', audio_info['track_name']  + '.mid')
+    midifile =  os.path.join('./model_output/', audio_info['track_name']  + '.mid')
     assert os.path.exists(midifile)
     return midifile
