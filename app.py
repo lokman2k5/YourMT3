@@ -7,6 +7,7 @@ import glob
 import gradio as gr
 
 from gradio_helper import *
+from load_checkpoint import *
 
 AUDIO_EXAMPLES = glob.glob('/content/examples/*.*', recursive=True)
 YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c"]
