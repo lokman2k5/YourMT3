@@ -1,5 +1,11 @@
 """config.py"""
 import numpy as np
+import torch
+
+if torch.cuda.is_available():
+    TEST_BSZ = 64
+else:
+    TEST_BSZ = 16
 # yapf: disable
 """
 audio_cfg:
@@ -132,7 +138,7 @@ shared_cfg = {
         "train_sub": 12, #20, # sub-batch size is per CPU worker
         "train_local": 24, #40, # local batch size is per GPU in DDP mode
         "validation": 64, # validation batch size is per GPU in DDP mode
-        "test": 64,
+        "test": TEST_BSZ,
     },
     "AUGMENTATION": {
         "train_random_amp_range": [0.8, 1.1], # min and max amplitude scaling factor
