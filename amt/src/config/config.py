@@ -173,7 +173,8 @@ shared_cfg = {
         "num_sanity_val_steps": 0,
     },
     "WANDB": {
-        "save_dir": "../logs",
+        # "save_dir": "../logs",
+        "save_dir": "amt/logs", # modified for huggingface spaces...
         "cache_dir": "../logs/.wandb_cache",
         "resume": "allow",
         "anonymous": "allow", # {never, allow, must}
