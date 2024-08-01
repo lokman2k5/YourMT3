@@ -128,18 +128,18 @@ YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c"]
 # theme = 'gradio/dracula_revamped' #'Insuz/Mocha' #gr.themes.Soft()
 # with gr.Blocks(theme=theme) as demo:
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
-theme.text_md = '8px'
+theme.text_md = '9px'
 with gr.Blocks(theme=theme) as demo:
 
     with gr.Row():
         with gr.Column(scale=10):
             gr.Markdown(
             """
-            ### 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
-            ##### Caution:
+            ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
+            #### Caution:
             - Running on CPU takes more than 3 minutes for a 30-second input, and it takes less than 10s with T4 GPU-small ($0.4/hr).
             - For acadmic reproduction purpose, we strongly recommend to use  or [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
-            #### [Paper](https://arxiv.org/abs/2407.04822) [Code](https://github.com/mimbres/YourMT3)
+            ### [Paper](https://arxiv.org/abs/2407.04822) [Code](https://github.com/mimbres/YourMT3)
             """)
 
     with gr.Group():
