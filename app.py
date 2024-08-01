@@ -130,7 +130,9 @@ YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c"]
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
 theme.text_md = '9px'
 theme.text_lg = '11px'
-with gr.Blocks(theme=theme) as demo:
+css = "body {background-image: url(r'https://gifer.com/embed/U7f2');}"
+# <iframe src="https://gifer.com/embed/U7f2" width=480 height=330.065 frameBorder="0" allowFullScreen></iframe><p><a href="https://gifer.com">via GIFER</a></p>
+with gr.Blocks(theme=theme, css=css) as demo:
 
     with gr.Row():
         with gr.Column(scale=10):
