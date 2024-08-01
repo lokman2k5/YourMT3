@@ -7,8 +7,7 @@ import glob
 import gradio as gr
 
 from gradio_helper import *
-from load_checkpoint import *
-
+from model_helper import *
 
 # @title Load Checkpoint
 model_name = 'YPTF.MoE+Multi (noPS)' # @param ["YMT3+", "YPTF+Single (noPS)", "YPTF+Multi (PS)", "YPTF.MoE+Multi (noPS)", "YPTF.MoE+Multi (PS)"]
