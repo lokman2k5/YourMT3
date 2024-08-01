@@ -135,7 +135,9 @@ with gr.Blocks(theme=theme) as demo:
         with gr.Column(scale=10):
             gr.Markdown(
             """
-            ### YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
+            ### 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
+            ##### Caution! Running on CPU takes more than 3 minutes for a 30-second input. It is recommended to use T4 GPU-small ($0.4/hr) or [Colab Demo](https://www.naver.com).
+            #### [Paper](https://arxiv.org/abs/2407.04822) [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) [Code](https://github.com/mimbres/YourMT3)
             """)
 
     with gr.Group():
