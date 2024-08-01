@@ -1,5 +1,9 @@
 # @title Model helper
-%cd /content/amt/src
+import sys
+import os
+current_directory = os.path.dirname(os.path.abspath(__file__)
+sys.path.append(os.path.join(current_directory, 'src'))
+
 from collections import Counter
 import argparse
 import torch
