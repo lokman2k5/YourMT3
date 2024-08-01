@@ -1,4 +1,6 @@
 # @title Load Checkpoint
+from model_helper import laod_model_checkpoint
+
 model_name = 'YPTF.MoE+Multi (noPS)' # @param ["YMT3+", "YPTF+Single (noPS)", "YPTF+Multi (PS)", "YPTF.MoE+Multi (noPS)", "YPTF.MoE+Multi (PS)"]
 precision = '16' # @param ["32", "bf16-mixed", "16"]
 project = '2024'
