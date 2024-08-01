@@ -2,6 +2,7 @@
 from collections import Counter
 import argparse
 import torch
+import torchaudio
 import numpy as np
 
 from model.init_train import initialize_trainer, update_config
