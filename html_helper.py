@@ -44,12 +44,12 @@ def create_html_from_midi(midifile):
 
     /* Custom visualizer style */
     #proll midi-visualizer .piano-roll-visualizer {{
-      background: #f7fafa6e;
+      background: #F7FAFA;
       border-radius: 0 0 8px 8px;
       border: 1px solid #A0A0A0;
       margin: 4px;
       margin-top: 2;
-      overflow: auto;
+      overflow: visible;
     }}
 
     #proll midi-visualizer svg rect.note {{
@@ -80,21 +80,41 @@ def create_html_from_midi(midifile):
 </head>
 <body>
   <div>
-    <a href="{midifile}" target="_blank" style="font-size: 11px;">Download MIDI</a> <br>
-    <section id="proll">
-      <midi-player src="{midifile}" sound-font="https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus" visualizer="#proll midi-visualizer">
-      </midi-player>
-      <midi-visualizer src="{midifile}">
-      </midi-visualizer>
-    </section>
+    <a href="{midifile}" target="_blank" style="font-size: 14px;">Download MIDI</a> <br>
+  </div>
+
+  <div style="position: relative; width: 100%; height: 80%; display: flex; justify-content: center; align-items: center;">
+      <style>
+          #proll {{ width: 100%; height: 550px; transform: scaleY(0.8); transform-origin: top; transition: transform 0.3s ease; }}
+          @media (max-width: 500px) {{ #proll {{ transform: scaleY(0.7); }} }}
+          @media (max-width: 450px) {{ #proll {{ transform: scaleY(0.6); }} }}
+          @media (max-width: 400px) {{ #proll {{ transform: scaleY(0.5); }} }}
+          @media (max-width: 350px) {{ #proll {{ transform: scaleY(0.4); }} }}
+          @media (max-width: 300px) {{ #proll {{ transform: scaleY(0.3); }} }}
+      </style>
+      <section id="proll">
+          <midi-player src="{midifile}" sound-font="https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus" visualizer="#proll midi-visualizer"></midi-player>
+          <midi-visualizer src="{midifile}"></midi-visualizer>
+      </section>
   </div>
 </body>
 </html>
 """.format(midifile=midifile)
-    html = f"""<iframe style="width: 100%; height: 400px; overflow:auto" srcdoc='{html_template}'></iframe>"""
+    html = f"""<div style="display: flex; justify-content: center; align-items: center;">
+                  <iframe style="width: 100%; height: 500px; overflow:visible" srcdoc='{html_template}'></iframe>
+            </div>"""
     return html
 
 def create_html_youtube_player(youtube_url):
     youtube_url = to_youtube_embed_url(youtube_url)
-    html = f"""<iframe width="560" height="315" src='{youtube_url}' title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>"""
+    html = f"""
+    <div style="display: flex; justify-content: center; align-items: center; position: relative; width: 100%; height: 100%;">
+        <style>
+            .responsive-iframe {{ width: 560px; height: 315px; transform-origin: top left; transition: width 0.3s ease, height 0.3s ease; }}
+            @media (max-width: 560px) {{ .responsive-iframe {{ width: 100%; height: 100%; }} }}
+        </style>
+        <iframe class="responsive-iframe" src="{youtube_url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    """
     return html
+    
