@@ -3,7 +3,7 @@ import numpy as np
 import torch
 
 if torch.cuda.is_available():
-    TEST_BSZ = 64
+    TEST_BSZ = 128
 else:
     TEST_BSZ = 16
 # yapf: disable
