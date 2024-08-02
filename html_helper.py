@@ -37,7 +37,7 @@ def create_html_from_midi(midifile):
     }}
 
     #proll midi-player::part(control-panel) {{
-      background: #D8DAE8;
+      background: #d8dae880;
       border-radius: 8px 8px 0 0;
       border: 1px solid #A0A0A0;
     }}
