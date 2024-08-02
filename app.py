@@ -178,7 +178,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             #### Caution:
             - Currently running on CPU, and it takes longer than 3 minutes for a 30-second input.
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
-            ### [Paper](https://arxiv.org/abs/2407.04822) [Code](https://github.com/mimbres/YourMT3)
+            ### [arxiv:2407.04822](https://arxiv.org/abs/2407.04822) | [Code](https://github.com/mimbres/YourMT3)
             """)
 
     with gr.Group():
