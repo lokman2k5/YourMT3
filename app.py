@@ -164,10 +164,10 @@ with gr.Blocks(theme=theme, css=css) as demo:
     with gr.Row():
         with gr.Column(scale=10):
             gr.Markdown(
-            """
+            f"""
             ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
             ### Model card:
-            - Model name: `YPTF.MoE+Multi`
+            - Model name: `model_name`
             - Encoder backbone: Perceiver-TF + Mixture of Experts (2/8)
             - Decoder backbone: Multi-channel T5-small
             - Tokenizer: MT3 tokens with Singing extension
