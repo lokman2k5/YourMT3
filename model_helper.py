@@ -22,7 +22,7 @@ from model.ymt3 import YourMT3
 
 
 
-def load_model_checkpoint(args=None):
+def load_model_checkpoint(args=None, device='cpu'):
     parser = argparse.ArgumentParser(description="YourMT3")
     # General
     parser.add_argument('exp_id', type=str, help='A unique identifier for the experiment is used to resume training. The "@" symbol can be used to load a specific checkpoint.')
@@ -104,7 +104,7 @@ def load_model_checkpoint(args=None):
     print(f"Task: {tm.task_name}, Max Shift Steps: {tm.max_shift_steps}")
 
     # Use GPU if available
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Model
     model = YourMT3(
@@ -120,7 +120,7 @@ def load_model_checkpoint(args=None):
     state_dict = checkpoint['state_dict']
     new_state_dict = {k: v for k, v in state_dict.items() if 'pitchshift' not in k}
     model.load_state_dict(new_state_dict, strict=False)
-    return model.eval()
+    return model.eval() # load checkpoint on cpu first
 
 
 def transcribe(model, audio_info):
