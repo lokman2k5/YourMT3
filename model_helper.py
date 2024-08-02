@@ -1,5 +1,5 @@
 # @title Model helper
-import spaces # for zero-GPU
+# import spaces # for zero-GPU
 
 import os
 from collections import Counter
@@ -21,7 +21,7 @@ from model.ymt3 import YourMT3
 
 
 
-@spaces.GPU
+
 def load_model_checkpoint(args=None):
     parser = argparse.ArgumentParser(description="YourMT3")
     # General
@@ -122,7 +122,7 @@ def load_model_checkpoint(args=None):
     model.load_state_dict(new_state_dict, strict=False)
     return model.eval()
 
-@spaces.GPU
+
 def transcribe(model, audio_info):
     t = Timer()
 
