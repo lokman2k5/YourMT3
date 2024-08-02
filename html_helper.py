@@ -44,7 +44,7 @@ def create_html_from_midi(midifile):
 
     /* Custom visualizer style */
     #proll midi-visualizer .piano-roll-visualizer {{
-      background: #F7FAFA;
+      background: #f7fafa6e;
       border-radius: 0 0 8px 8px;
       border: 1px solid #A0A0A0;
       margin: 4px;
