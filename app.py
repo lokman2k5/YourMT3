@@ -174,7 +174,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             f"""
             ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
             ### Model card:
-            - Model name: `model_name`
+            - Model name: `{model_name}`
             - Encoder backbone: Perceiver-TF + Mixture of Experts (2/8)
             - Decoder backbone: Multi-channel T5-small
             - Tokenizer: MT3 tokens with Singing extension
