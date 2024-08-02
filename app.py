@@ -51,8 +51,8 @@ elif model_name == "YPTF.MoE+Multi (PS)":
 else:
     raise ValueError(model_name)
 
-model = load_model_checkpoint(args=args)
-
+model = load_model_checkpoint(args=args, device="cpu")
+model.to("cuda")
 # @title GradIO helper
 
 
@@ -101,6 +101,7 @@ def prepare_media(source_path_or_url: os.PathLike,
         "encoding": str.lower(info.encoding),
         }
 
+@spaces.GPU
 def process_audio(audio_filepath):
     if audio_filepath is None:
         return None
@@ -109,6 +110,7 @@ def process_audio(audio_filepath):
     midifile = to_data_url(midifile)
     return create_html_from_midi(midifile) # html midiplayer
 
+@spaces.GPU
 def process_video(youtube_url):
     if 'youtu' not in youtube_url:
         return None
