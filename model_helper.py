@@ -17,7 +17,9 @@ from utils.event2note import merge_zipped_note_events_and_ties_to_notes
 from utils.utils import write_model_output_as_midi, write_err_cnt_as_json
 from model.ymt3 import YourMT3
 
+import spaces # for zero-GPU
 
+@spaces.GPU
 def load_model_checkpoint(args=None):
     parser = argparse.ArgumentParser(description="YourMT3")
     # General
@@ -118,7 +120,7 @@ def load_model_checkpoint(args=None):
     model.load_state_dict(new_state_dict, strict=False)
     return model.eval()
 
-
+@spaces.GPU
 def transcribe(model, audio_info):
     t = Timer()
 
