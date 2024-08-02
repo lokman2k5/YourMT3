@@ -179,6 +179,23 @@ with gr.Blocks(theme=theme, css=css) as demo:
             - Currently running on CPU, and it takes longer than 3 minutes for a 30-second input.
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
             ### [arxiv:2407.04822](https://arxiv.org/abs/2407.04822) | [Code](https://github.com/mimbres/YourMT3)
+            <div style="display: inline-block;">
+                <a href="https://arxiv.org/abs/2407.04822">
+                    <img src="https://img.shields.io/badge/arXiv-B31B1B?logo=arxiv&logoColor=fff&style=plastic" alt="arXiv Badge"/>
+                </a>
+            </div>
+            <div style="display: inline-block;">
+                <a href="https://github.com/mimbres/YourMT3">
+                    <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=plastic" alt="GitHub Badge"/>
+                </a>
+            </div>
+            <div style="display: inline-block;">
+                <a href="https://huggingface.co/spaces/mimbres/YourMT3">
+                    <img src="https://img.shields.io/badge/Model%20on-🤗-1f425f.svg?style=plastic" alt="Hugging Face Badge"/>
+                </a>
+            </div>
+            
+            
             """)
 
     with gr.Group():
