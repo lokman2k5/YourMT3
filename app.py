@@ -123,7 +123,12 @@ def play_video(youtube_url):
 
 
 AUDIO_EXAMPLES = glob.glob('examples/*.*', recursive=True)
-YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c"]
+YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c",
+                    "https://youtu.be/OXXRoa1U6xU?si=nhJ6lzGenCmk4P7R",
+                    "https://youtu.be/EOJ0wH6h3rE?si=a99k6BnSajvNmXcn",
+                    "https://youtu.be/7mjQooXt28o?si=qqmMxCxwqBlLPDI2",
+                    "https://youtu.be/bnS-HK_lTHA?si=PQLVAab3QHMbv0S3https://youtu.be/zJB0nnOc7bM?si=EA1DN8nHWJcpQWp_",
+                    "https://youtu.be/mIWYTg55h10?si=WkbtKfL6NlNquvT8"]
 
 # theme = 'gradio/dracula_revamped' #'Insuz/Mocha' #gr.themes.Soft()
 # with gr.Blocks(theme=theme) as demo:
@@ -157,9 +162,18 @@ with gr.Blocks(theme=theme, css=css) as demo:
             gr.Markdown(
             """
             ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
+            ### Model card:
+            - Model name: `YPTF.MoE+Multi`
+            - Encoder backbone: Perceiver-TF + Mixture of Experts (2/8)
+            - Decoder backbone: Multi-channel T5-small
+            - Tokenizer: MT3 tokens with Singing extension
+            - Dataset: YourMT3 dataset
+            - Augmentation strategy: Intra-/Cross dataset stem augment, No Pitch-shifting
+            - FP Precision: BF16-mixed for training, FP16 for inference
+            
             #### Caution:
             - Currently running on CPU, and it takes longer than 3 minutes for a 30-second input.
-            - For acadmic reproduction purpose, we strongly recommend to use  or [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
+            - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
             ### [Paper](https://arxiv.org/abs/2407.04822) [Code](https://github.com/mimbres/YourMT3)
             """)
 
