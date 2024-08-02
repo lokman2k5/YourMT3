@@ -80,7 +80,7 @@ def create_html_from_midi(midifile):
 </head>
 <body>
   <div>
-    <a href="{midifile}" target="_blank" style="font-size: 10px;">Download MIDI</a> <br>
+    <a href="{midifile}" target="_blank" style="font-size: 11px;">Download MIDI</a> <br>
     <section id="proll">
       <midi-player src="{midifile}" sound-font="https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus" visualizer="#proll midi-visualizer">
       </midi-player>
