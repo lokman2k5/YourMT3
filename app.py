@@ -128,6 +128,7 @@ def play_video(youtube_url):
 
 AUDIO_EXAMPLES = glob.glob('examples/*.*', recursive=True)
 YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c",
+                    "https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
                     "https://youtu.be/OXXRoa1U6xU?si=nhJ6lzGenCmk4P7R",
                     "https://youtu.be/EOJ0wH6h3rE?si=a99k6BnSajvNmXcn",
                     "https://youtu.be/7mjQooXt28o?si=qqmMxCxwqBlLPDI2",
@@ -154,15 +155,9 @@ css = """
     height: 100vh;
 }
 @keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
 }
 """
 
@@ -215,30 +210,29 @@ with gr.Blocks(theme=theme, css=css) as demo:
             transcribe_audio_button = gr.Button("Transcribe", variant="primary")
             # Transcribe
             output_tab1 = gr.HTML()
-            # audio_output = gr.Text(label="Audio Info")
-            # transcribe_audio_button.click(process_audio, inputs=audio_input, outputs=output_tab1)
             transcribe_audio_button.click(process_audio, inputs=audio_input, outputs=output_tab1)
 
         with gr.Tab("From YouTube"):
-            with gr.Row():
+            with gr.Column(scale=4):
                 # Input URL
                 youtube_url = gr.Textbox(label="YouTube Link URL",
                         placeholder="https://youtu.be/...")
-                # Play youtube
-                youtube_player = gr.HTML(render=True)
-            with gr.Row():
+                # Display examples
+                gr.Examples(examples=YOUTUBE_EXAMPLES, inputs=youtube_url)
                 # Play button
                 play_video_button = gr.Button("Get Audio from YouTube", variant="primary")
+                # Play youtube
+                youtube_player = gr.HTML(render=True)
+
+            with gr.Column(scale=4):
                 # Submit button
                 transcribe_video_button = gr.Button("Transcribe", variant="primary")
-            # Transcribe
-            output_tab2 = gr.HTML(render=True)
-            # video_output = gr.Text(label="Video Info")
-            transcribe_video_button.click(process_video, inputs=youtube_url, outputs=output_tab2)
-            # Play
-            play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
-
-            # Display examples
-            gr.Examples(examples=YOUTUBE_EXAMPLES, inputs=youtube_url)
+            with gr.Column(scale=1):
+                # Transcribe
+                output_tab2 = gr.HTML(render=True)
+                # video_output = gr.Text(label="Video Info")
+                transcribe_video_button.click(process_video, inputs=youtube_url, outputs=output_tab2)
+                # Play
+                play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
 
 demo.launch(debug=True)
