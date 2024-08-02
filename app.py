@@ -205,7 +205,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 youtube_player = gr.HTML(render=True)
             with gr.Row():
                 # Play button
-                play_video_button = gr.Button("Play", variant="primary")
+                play_video_button = gr.Button("Get Audio from YouTube link", variant="primary")
                 # Submit button
                 transcribe_video_button = gr.Button("Transcribe", variant="primary")
             # Transcribe
