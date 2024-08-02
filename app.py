@@ -134,11 +134,18 @@ YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c",
                     "https://youtu.be/bnS-HK_lTHA?si=PQLVAab3QHMbv0S3https://youtu.be/zJB0nnOc7bM?si=EA1DN8nHWJcpQWp_",
                     "https://youtu.be/mIWYTg55h10?si=WkbtKfL6NlNquvT8"]
 
-# theme = 'gradio/dracula_revamped' #'Insuz/Mocha' #gr.themes.Soft()
-# with gr.Blocks(theme=theme) as demo:
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
 theme.text_md = '9px'
 theme.text_lg = '11px'
+
+theme.body_background_fill_dark = '#060a1c' #'#372037'# '#a17ba5' #'#73d3ac'
+theme.border_color_primary_dark = '#45507328'
+theme.block_background_fill_dark = '#3845685c'
+
+theme.body_text_color_dark = 'white'
+theme.block_title_text_color_dark = 'black'
+theme.body_text_color_subdued_dark = '#e4e9e9'
+
 css = """
 .gradio-container {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -176,9 +183,8 @@ with gr.Blocks(theme=theme, css=css) as demo:
             - FP Precision: BF16-mixed for training, FP16 for inference
             
             #### Caution:
-            - Currently running on CPU, and it takes longer than 3 minutes for a 30-second input.
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
-            ### [arxiv:2407.04822](https://arxiv.org/abs/2407.04822) | [Code](https://github.com/mimbres/YourMT3)
+        
             <div style="display: inline-block;">
                 <a href="https://arxiv.org/abs/2407.04822">
                     <img src="https://img.shields.io/badge/arXiv-B31B1B?logo=arxiv&logoColor=fff&style=plastic" alt="arXiv Badge"/>
