@@ -182,7 +182,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
         
             <div style="display: inline-block;">
                 <a href="https://arxiv.org/abs/2407.04822">
-                    <img src="https://img.shields.io/badge/arXiv-B31B1B?logo=arxiv&logoColor=fff&style=plastic" alt="arXiv Badge"/>
+                    <img src="https://img.shields.io/badge/arXiv:2407.04822-B31B1B?logo=arxiv&logoColor=fff&style=plastic" alt="arXiv Badge"/>
                 </a>
             </div>
             <div style="display: inline-block;">
@@ -191,12 +191,10 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 </a>
             </div>
             <div style="display: inline-block;">
-                <a href="https://huggingface.co/spaces/mimbres/YourMT3">
-                    <img src="https://img.shields.io/badge/Model%20on-🤗-1f425f.svg?style=plastic" alt="Hugging Face Badge"/>
+                <a href="https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing">
+                    <img src="https://img.shields.io/badge/Google%20Colab-F9AB00?logo=googlecolab&logoColor=fff&style=plastic"/>
                 </a>
             </div>
-            
-            
             """)
 
     with gr.Group():
