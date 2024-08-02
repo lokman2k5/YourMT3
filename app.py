@@ -158,7 +158,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             """
             ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
             #### Caution:
-            - Running on CPU takes more than 3 minutes for a 30-second input, and it takes less than 10s with T4 GPU-small ($0.4/hr).
+            - Currently running on CPU, and it takes longer than 3 minutes for a 30-second input.
             - For acadmic reproduction purpose, we strongly recommend to use  or [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
             ### [Paper](https://arxiv.org/abs/2407.04822) [Code](https://github.com/mimbres/YourMT3)
             """)
