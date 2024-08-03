@@ -101,7 +101,7 @@ def create_html_from_midi(midifile):
 </html>
 """.format(midifile=midifile)
     html = f"""<div style="display: flex; justify-content: center; align-items: center;">
-                  <iframe style="width: 100%; height: 500px; overflow:visible" srcdoc='{html_template}'></iframe>
+                  <iframe style="width: 100%; height: 500px; overflow:auto" srcdoc='{html_template}'></iframe>
             </div>"""
     return html
 
