@@ -52,6 +52,7 @@ def create_html_from_midi(midifile):
       margin: 4px;
       margin-top: 2;
       overflow: auto;
+      transform-origin: top; 
       transform: scaleY(0.8); /* Added scaleY */
     }}
 
