@@ -79,17 +79,11 @@ def create_html_from_midi(midifile):
     }}
 
     /* Media queries for responsive scaling */
-    @media (max-width: 500px) {
-      #proll midi-player {
-        transform: scale(0.6);
-      }
-    }
-
-    @media (max-width: 400px) {
-      #proll midi-player {
-        transform: scale(0.4);
-      }
-    }    
+    @media (max-width: 500px) {{ #proll midi-player {{transform: scale(0.7);}} }}
+    @media (max-width: 450px) {{ #proll midi-player {{transform: scale(0.6);}} }}
+    @media (max-width: 400px) {{ #proll midi-player {{transform: scale(0.5);}} }}
+    @media (max-width: 350px) {{ #proll midi-player {{transform: scale(0.4);}} }}
+    @media (max-width: 300px) {{ #proll midi-player {{transform: scale(0.3);}} }}
   </style>
 </head>
 <body>
