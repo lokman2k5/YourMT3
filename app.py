@@ -203,7 +203,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             audio_input = gr.Audio(label="Record Audio", type="filepath",
                                 show_share_button=True, show_download_button=True)
             # Display examples
-            gr.Examples(examples=AUDIO_EXAMPLES, inputs=audio_input, visible=False)
+            gr.Examples(examples=AUDIO_EXAMPLES, inputs=audio_input)
             # Submit button
             transcribe_audio_button = gr.Button("Transcribe", variant="primary")
             # Transcribe
