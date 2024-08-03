@@ -34,6 +34,7 @@ def create_html_from_midi(midifile):
       width: inherit;
       margin: 4px;
       margin-bottom: 0;
+      transform-origin: top; 
       transform: scaleY(0.8); /* Added scaleY */
     }}
 
@@ -80,6 +81,7 @@ def create_html_from_midi(midifile):
     }}
 
     /* Media queries for responsive scaling */
+    @media (max-width: 700px) {{ #proll midi-visualizer .piano-roll-visualizer {{transform-origin: top; transform: scaleY(0.75);}} }}
     @media (max-width: 500px) {{ #proll midi-visualizer .piano-roll-visualizer {{transform-origin: top; transform: scaleY(0.7);}} }}
     @media (max-width: 400px) {{ #proll midi-visualizer .piano-roll-visualizer {{transform-origin: top; transform: scaleY(0.6);}} }}
     @media (max-width: 300px) {{ #proll midi-visualizer .piano-roll-visualizer {{transform-origin: top; transform: scaleY(0.5);}} }}
