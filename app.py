@@ -136,8 +136,8 @@ YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c",
                     "https://youtu.be/mIWYTg55h10?si=WkbtKfL6NlNquvT8"]
 
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
-theme.text_md = '9px'
-theme.text_lg = '11px'
+theme.text_md = '10px'
+theme.text_lg = '12px'
 
 theme.body_background_fill_dark = '#060a1c' #'#372037'# '#a17ba5' #'#73d3ac'
 theme.border_color_primary_dark = '#45507328'
@@ -168,7 +168,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             gr.Markdown(
             f"""
             ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
-            ### Model card:
+            ## Model card:
             - Model name: `{model_name}`
             - Encoder backbone: Perceiver-TF + Mixture of Experts (2/8)
             - Decoder backbone: Multi-channel T5-small
@@ -177,7 +177,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             - Augmentation strategy: Intra-/Cross dataset stem augment, No Pitch-shifting
             - FP Precision: BF16-mixed for training, FP16 for inference
             
-            #### Caution:
+            ## Caution:
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
         
             <div style="display: inline-block;">
