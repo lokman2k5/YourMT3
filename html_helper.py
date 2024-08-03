@@ -49,7 +49,7 @@ def create_html_from_midi(midifile):
       border: 1px solid #A0A0A0;
       margin: 4px;
       margin-top: 2;
-      overflow: visible;
+      overflow: auto;
     }}
 
     #proll midi-visualizer svg rect.note {{
