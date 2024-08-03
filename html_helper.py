@@ -82,21 +82,15 @@ def create_html_from_midi(midifile):
   <div>
     <a href="{midifile}" target="_blank" style="font-size: 14px;">Download MIDI</a> <br>
   </div>
-
-  <div style="position: relative; width: 100% height: 80%; display: flex; justify-content: flex-start; align-items: center;">
-      <style>
-          #proll {{width: 100% height: 550px; transform: scaleY(0.8); transform-origin: top; transition: transform 0.3s ease; }}
-          @media (max-width: 500px) {{ #proll {{ transform: scaleY(0.7); }} }}
-          @media (max-width: 450px) {{ #proll {{ transform: scaleY(0.6); }} }}
-          @media (max-width: 400px) {{ #proll {{ transform: scaleY(0.5); }} }}
-          @media (max-width: 350px) {{ #proll {{ transform: scaleY(0.4); }} }}
-          @media (max-width: 300px) {{ #proll {{ transform: scaleY(0.3); }} }}
-      </style>
-      <section id="proll">
-          <midi-player src="{midifile}" sound-font="https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus" visualizer="#proll midi-visualizer"></midi-player>
-          <midi-visualizer src="{midifile}"></midi-visualizer>
-      </section>
+  <div>
+    <section id="proll">
+      <midi-player src="{midifile}" sound-font="https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus" visualizer="#proll midi-visualizer">
+      </midi-player>
+      <midi-visualizer src="{midifile}">
+      </midi-visualizer>
+    </section>
   </div>
+
 </body>
 </html>
 """.format(midifile=midifile)
