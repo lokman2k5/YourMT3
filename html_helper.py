@@ -50,7 +50,7 @@ def create_html_from_midi(midifile):
       border-radius: 0 0 8px 8px;
       border: 1px solid #A0A0A0;
       margin: 4px;
-      margin-top: 2;
+      margin-top: 1;
       overflow: auto;
       transform-origin: top; 
       transform: scaleY(0.8); /* Added scaleY */
@@ -105,7 +105,7 @@ def create_html_from_midi(midifile):
 </html>
 """.format(midifile=midifile)
     html = f"""<div style="display: flex; justify-content: center; align-items: center;">
-                  <iframe style="width: 100%; height: 500px; overflow:auto" srcdoc='{html_template}'></iframe>
+                  <iframe style="width: 100%; height: 500px; overflow:hidden" srcdoc='{html_template}'></iframe>
             </div>"""
     return html
 
