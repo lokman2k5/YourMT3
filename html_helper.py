@@ -77,6 +77,19 @@ def create_html_from_midi(midifile):
       opacity: 0.9;
       stroke: #34384F;
     }}
+
+    /* Media queries for responsive scaling */
+    @media (max-width: 500px) {
+      #proll midi-player {
+        transform: scale(0.6);
+      }
+    }
+
+    @media (max-width: 400px) {
+      #proll midi-player {
+        transform: scale(0.4);
+      }
+    }    
   </style>
 </head>
 <body>
