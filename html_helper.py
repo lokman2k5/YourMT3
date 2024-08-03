@@ -85,7 +85,7 @@ def create_html_from_midi(midifile):
 
   <div style="position: relative; width: 100% height: 80%; display: flex; justify-content: center; align-items: center;">
       <style>
-          #proll {{height: 550px; transform: scaleY(0.8); transform-origin: top; transition: transform 0.3s ease; }}
+          #proll {{width: 100% height: 550px; transform: scaleY(0.8); transform-origin: top; transition: transform 0.3s ease; }}
           @media (max-width: 500px) {{ #proll {{ transform: scaleY(0.7); }} }}
           @media (max-width: 450px) {{ #proll {{ transform: scaleY(0.6); }} }}
           @media (max-width: 400px) {{ #proll {{ transform: scaleY(0.5); }} }}
