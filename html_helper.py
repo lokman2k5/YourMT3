@@ -34,6 +34,7 @@ def create_html_from_midi(midifile):
       width: inherit;
       margin: 4px;
       margin-bottom: 0;
+      transform: scaleY(0.8); /* Added scaleY */
     }}
 
     #proll midi-player::part(control-panel) {{
