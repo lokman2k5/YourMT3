@@ -32,7 +32,7 @@ elif model_name == "YPTF+Single (noPS)":
     args = [checkpoint, '-p', project, '-enc', 'perceiver-tf', '-ac', 'spec',
             '-hop', '300', '-atc', '1', '-pr', precision]
 elif model_name == "YPTF+Multi (PS)":
-    checkpoint = "mc13_256_g4_all_v7_mt3f_sqr_rms_moe_wf4_n8k2_silu_rope_rp_b80_ps2@model.ckpt"
+    checkpoint = "mc13_256_all_cross_v6_xk5_amp0811_edr005_attend_c_full_plus_2psn_nl26_sb_b26r_800k@model.ckpt"
     args = [checkpoint, '-p', project, '-tk', 'mc13_full_plus_256',
             '-dec', 'multi-t5', '-nl', '26', '-enc', 'perceiver-tf',
             '-ac', 'spec', '-hop', '300', '-atc', '1', '-pr', precision]
