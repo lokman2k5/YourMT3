@@ -7,12 +7,10 @@ yt-dlp
 mirdata
 mido
 git+https://github.com/craffel/mir_eval.git
-git+https://github.com/katsura-jp/pytorch-cosine-annealing-with-warmup.git
 lightning>=2.2.1
 pytest
 deprecated
 librosa
 einops
 transformers
-wandb
 numpy==1.26.4
