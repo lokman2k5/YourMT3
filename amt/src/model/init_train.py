@@ -46,11 +46,12 @@ def initialize_trainer(args: argparse.Namespace,
     if shared_cfg["WANDB"].get("cache_dir", None) is not None:
         os.environ["WANDB_CACHE_DIR"] = shared_cfg["WANDB"].get("cache_dir")
         del shared_cfg["WANDB"]["cache_dir"]  # remove cache_dir from shared_cfg
-    wandb_logger = WandbLogger(log_model="all",
-                               project=args.project,
-                               id=args.exp_id,
-                               allow_val_change=True,
-                               **shared_cfg['WANDB'])
+    # wandb_logger = WandbLogger(log_model="all",
+    #                            project=args.project,
+    #                            id=args.exp_id,
+    #                            allow_val_change=True,
+    #                            **shared_cfg['WANDB'])
+    wandb_logger = None
 
     # check if any checkpoint exists
     last_ckpt_path = os.path.join(lightning_dir, "checkpoints", checkpoint_name)
@@ -109,14 +110,14 @@ def initialize_trainer(args: argparse.Namespace,
                         precision=args.precision,
                         max_epochs=args.max_epochs if stage == 'train' else None,
                         max_steps=args.max_steps if stage == 'train' else -1,
-                        logger=wandb_logger,
+                        # logger=wandb_logger,
                         callbacks=[checkpoint_callback, lr_monitor],
                         sync_batchnorm=sync_batchnorm)
     trainer = pl.trainer.trainer.Trainer(**train_params)
 
-    # Update wandb logger (for DDP)
-    if trainer.global_rank == 0:
-        wandb_logger.experiment.config.update(args, allow_val_change=True)
+    # # Update wandb logger (for DDP)
+    # if trainer.global_rank == 0:
+    #     wandb_logger.experiment.config.update(args, allow_val_change=True)
 
     return trainer, wandb_logger, dir_info, shared_cfg
 
