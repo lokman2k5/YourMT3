@@ -93,7 +93,7 @@ def prepare_media(source_path_or_url: os.PathLike,
                 #     '--force-overwrites', '--cookies', 'amt/src/extras/c.txt'])
                 subprocess.run(['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
                     '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
-                    '--force-overwrites', '--username', 'mimbresdemo@gmail.com', '--passowrd', 'h~bM;M0dpZDA',
+                    '--force-overwrites', '--username', 'mimbresdemo@gmail.com', '--password', 'h~bM;M0dpZDA',
                     '--cookies', 'amt/src/extras/c.txt'])
                 audio_file += '.mp3'
             except Exception as e:
