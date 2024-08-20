@@ -234,7 +234,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 youtube_url = gr.Textbox(label="YouTube Link URL",
                         placeholder="https://youtu.be/...")
                 # Display examples
-                gr.Examples(examples=YOUTUBE_EXAMPLES, inputs=youtube_url)
+                gr.Examples(examples=YOUTUBE_EXAMPLES, inputs=youtube_url, examples_per_page=4)
                 # Play button
                 play_video_button = gr.Button("Get Audio from YouTube", variant="primary")
                 # Play youtube
