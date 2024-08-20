@@ -12,7 +12,8 @@ from ctypes import ArgumentError
 from html_helper import *
 from model_helper import *
 
-from pytube import YouTube
+# from pytube import YouTube
+from pytubefix import YouTube
 import torchaudio
 import glob
 import gradio as gr
@@ -67,8 +68,9 @@ def prepare_media(source_path_or_url: os.PathLike,
         # Download from youtube
         try:
             # Try PyTube first
-            proxy_handler = {"http": "http://127.0.0.1:1087", "https":"http://127.0.0.1:1087"}
-            yt = YouTube(source_path_or_url, proxies=proxy_handler)
+            # proxy_handler = {"http": "http://127.0.0.1:1087", "https":"http://127.0.0.1:1087"}
+            # yt = YouTube(source_path_or_url, proxies=proxy_handler)
+            yt = YouTube(source_path_or_url)
             audio_stream = min(yt.streams.filter(only_audio=True), key=lambda s: s.bitrate)
             mp4_file = audio_stream.download(output_path='downloaded') # ./downloaded
             audio_file = mp4_file[:-3] + 'mp3'
