@@ -2,7 +2,7 @@ python-dotenv
 --extra-index-url https://download.pytorch.org/whl/cu113
 torch
 torchaudio
-pytube
+pytubefix
 yt-dlp
 mirdata
 mido
