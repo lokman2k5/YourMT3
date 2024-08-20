@@ -65,29 +65,35 @@ def prepare_media(source_path_or_url: os.PathLike,
     if source_type == 'audio_filepath':
         audio_file = source_path_or_url
     elif source_type == 'youtube_url':
+        yt = YouTube(source_path_or_url)
+        audio_stream = min(yt.streams.filter(only_audio=True), key=lambda s: s.bitrate)
+        mp4_file = audio_stream.download(output_path='downloaded') # ./downloaded
+        audio_file = mp4_file[:-3] + 'mp3'
+        subprocess.run(['ffmpeg', '-i', mp4_file, '-ac', '1', audio_file])
+        os.remove(mp4_file)
         # Download from youtube
-        try:
-            # Try PyTube first
-            # proxy_handler = {"http": "http://127.0.0.1:1087", "https":"http://127.0.0.1:1087"}
-            # yt = YouTube(source_path_or_url, proxies=proxy_handler)
-            yt = YouTube(source_path_or_url)
-            audio_stream = min(yt.streams.filter(only_audio=True), key=lambda s: s.bitrate)
-            mp4_file = audio_stream.download(output_path='downloaded') # ./downloaded
-            audio_file = mp4_file[:-3] + 'mp3'
-            subprocess.run(['ffmpeg', '-i', mp4_file, '-ac', '1', audio_file])
-            os.remove(mp4_file)
-        except Exception as e:
-            try:
-                # Try alternative
-                print(f"Failed with PyTube, error: {e}. Trying yt-dlp...")
-                audio_file = './downloaded/yt_audio'
-                subprocess.run(['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
-                    '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
-                    '--force-overwrites', '--cookies', 'amt/src/extras/c.txt'])
-                audio_file += '.mp3'
-            except Exception as e:
-                print(f"Alternative downloader failed, error: {e}. Please try again later!")
-                return None
+        # try:
+        #     # Try PyTube first
+        #     # proxy_handler = {"http": "http://127.0.0.1:1087", "https":"http://127.0.0.1:1087"}
+        #     # yt = YouTube(source_path_or_url, proxies=proxy_handler)
+        #     yt = YouTube(source_path_or_url)
+        #     audio_stream = min(yt.streams.filter(only_audio=True), key=lambda s: s.bitrate)
+        #     mp4_file = audio_stream.download(output_path='downloaded') # ./downloaded
+        #     audio_file = mp4_file[:-3] + 'mp3'
+        #     subprocess.run(['ffmpeg', '-i', mp4_file, '-ac', '1', audio_file])
+        #     os.remove(mp4_file)
+        # except Exception as e:
+        #     try:
+        #         # Try alternative
+        #         print(f"Failed with PyTube, error: {e}. Trying yt-dlp...")
+        #         audio_file = './downloaded/yt_audio'
+        #         subprocess.run(['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
+        #             '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
+        #             '--force-overwrites', '--cookies', 'amt/src/extras/c.txt'])
+        #         audio_file += '.mp3'
+        #     except Exception as e:
+        #         print(f"Alternative downloader failed, error: {e}. Please try again later!")
+        #         return None
     else:
         raise ValueError(source_type)
 
