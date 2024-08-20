@@ -93,7 +93,8 @@ def prepare_media(source_path_or_url: os.PathLike,
                 #     '--force-overwrites', '--cookies', 'amt/src/extras/c.txt'])
                 subprocess.run(['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
                     '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
-                    '--force-overwrites', '--cache-dir', 'amt/src/extras/auth2'])
+                    '--force-overwrites', '--username', 'mimbresdemo@gmail.com', '--password', '', 
+                    '--cache-dir', 'amt/src/extras/auth2'])
                 audio_file += '.mp3'
             except Exception as e:
                 print(f"Alternative downloader failed, error: {e}. Please try again later!")
