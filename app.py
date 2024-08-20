@@ -66,7 +66,7 @@ def prepare_media(source_path_or_url: os.PathLike,
         audio_file = source_path_or_url
     elif source_type == 'youtube_url':
         proxy_handler = {"http": "http://127.0.0.1:1087", "https":"http://127.0.0.1:1087"}
-        yt = YouTube(source_path_or_url, use_oauth=true, proxies=proxy_handler)
+        yt = YouTube(source_path_or_url, use_oauth=True, proxies=proxy_handler, allow_oauth_cache=False)
         audio_stream = min(yt.streams.filter(only_audio=True), key=lambda s: s.bitrate)
         mp4_file = audio_stream.download(output_path='downloaded') # ./downloaded
         audio_file = mp4_file[:-3] + 'mp3'
