@@ -81,6 +81,7 @@ def prepare_media(source_path_or_url: os.PathLike,
         
             for line in iter(process.stdout.readline, ''):
                 # Filter out unnecessary messages
+                print(line)
                 if "www.google.com/device" in line:
                     hl_text = line.replace("https://www.google.com/device", "\033[93mhttps://www.google.com/device\x1b[0m").split()
                     hl_text[-1] = "\x1b[31;1m" + hl_text[-1] + "\x1b[0m"
@@ -173,14 +174,19 @@ with gr.Blocks(theme=theme, css=css) as demo:
             gr.Markdown(
             f"""
             ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
-            ## Model card:
             - Model name: `{model_name}`
-            - Encoder backbone: Perceiver-TF + Mixture of Experts (2/8)
-            - Decoder backbone: Multi-channel T5-small
-            - Tokenizer: MT3 tokens with Singing extension
-            - Dataset: YourMT3 dataset
-            - Augmentation strategy: Intra-/Cross dataset stem augment, No Pitch-shifting
-            - FP Precision: BF16-mixed for training, FP16 for inference
+                <▶model details◀>
+                <summary>(Details)</summary>
+                     
+                | **Component**            | **Details**                                      |
+                |--------------------------|--------------------------------------------------|
+                | Encoder backbone         | Perceiver-TF + Mixture of Experts (2/8)          |
+                | Decoder backbone         | Multi-channel T5-small                           |
+                | Tokenizer                | MT3 tokens with Singing extension                |
+                | Dataset                  | YourMT3 dataset                                  |
+                | Augmentation strategy    | Intra-/Cross dataset stem augment, No Pitch-shifting |
+                | FP Precision             | BF16-mixed for training, FP16 for inference      |
+                </details>
             
             ## Caution:
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
