@@ -68,6 +68,7 @@ def prepare_media(source_path_or_url: os.PathLike,
     if source_type == 'audio_filepath':
         audio_file = source_path_or_url
     elif source_type == 'youtube_url':
+        os.remove('/download/yt_audio.mp3')
         # Download from youtube
         with open(log_file, 'w') as lf:
             audio_file = './downloaded/yt_audio'
