@@ -4,7 +4,6 @@ torch
 torchaudio
 yt-dlp
 https://github.com/coletdjnz/yt-dlp-youtube-oauth2/archive/refs/heads/master.zip
-mirdata
 mido
 git+https://github.com/craffel/mir_eval.git
 lightning>=2.2.1
