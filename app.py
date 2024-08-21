@@ -83,7 +83,7 @@ def prepare_media(source_path_or_url: os.PathLike,
                 if "www.google.com/device" in line:
                     hl_text = line.replace("https://www.google.com/device", "\033[93mhttps://www.google.com/device\x1b[0m").split()
                     hl_text[-1] = "\x1b[31;1m" + hl_text[-1] + "\x1b[0m"
-                    lf.write(' '.join(hl_text[])); lf.flush()    
+                    lf.write(' '.join(hl_text)); lf.flush()    
             process.stdout.close()
             process.wait()
         
