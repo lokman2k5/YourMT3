@@ -73,6 +73,7 @@ def prepare_media(source_path_or_url: os.PathLike,
             audio_file = './downloaded/yt_audio'
             command = ['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
                 '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
+                '--file-access-retries', '10',
                 '--force-overwrites', '--username', 'oauth2', '--password', '', '-v']
             if simulate:
                 command = command + ['-s']
