@@ -163,6 +163,7 @@ css = """
     50% {background-position: 100% 50%;}
     100% {background-position: 0% 50%;}
 }
+#mylog {font-size: 12pt; line-height: 1.2; min-height: 2em; max-height: 4em;}  
 """
 
 with gr.Blocks(theme=theme, css=css) as demo:
@@ -184,8 +185,8 @@ with gr.Blocks(theme=theme, css=css) as demo:
             ## Caution:
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
 
-            ## YouTube transcription (**working**):
-            - Press the "Transcribe" button, copy the 6-digit code below, and paste it into "google.com/device". (Only needed once.)
+            ## YouTube transcription (working 🚀):
+            - Press the `Transcribe` button, copy the 12-digit code below, and paste it into `google.com/device`. (Only needed once.)
 
             <div style="display: inline-block;">
                 <a href="https://arxiv.org/abs/2407.04822">
