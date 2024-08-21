@@ -126,10 +126,12 @@ def create_html_oauth():
     html = f"""
     <div style="display: flex; justify-content: center; align-items: center; position: relative; width: 100%; height: 100%;">
         <style>
-            .responsive-iframe {{ width: 560px; height: 315px; transform-origin: top left; transition: width 0.3s ease, height 0.3s ease; }}
-            @media (max-width: 560px) {{ .responsive-iframe {{ width: 100%; height: 100%; }} }}
+            .responsive-link {{ display: inline-block; padding: 10px 20px; text-align: center; font-size: 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; transition: background-color 0.3s ease; }}
+            .responsive-link:hover {{ background-color: #0056b3; }}
         </style>
-        <iframe class="responsive-iframe" src="https://www.google.com/device" title="YouTube oauth" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <a href="https://www.google.com/device" target="_blank" rel="noopener noreferrer" class="responsive-link">
+            Open Google Device Page
+        </a>
     </div>
     """
     return html
