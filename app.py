@@ -73,7 +73,7 @@ def prepare_media(source_path_or_url: os.PathLike,
             audio_file = './downloaded/yt_audio'
             command = ['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
                 '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
-                '--file-access-retries', '10',
+                '--extractor-retries', '10',
                 '--force-overwrites', '--username', 'oauth2', '--password', '', '-v']
             if simulate:
                 command = command + ['-s']
@@ -86,7 +86,9 @@ def prepare_media(source_path_or_url: os.PathLike,
                 if "www.google.com/device" in line:
                     hl_text = line.replace("https://www.google.com/device", "\033[93mhttps://www.google.com/device\x1b[0m").split()
                     hl_text[-1] = "\x1b[31;1m" + hl_text[-1] + "\x1b[0m"
-                    lf.write(' '.join(hl_text)); lf.flush()    
+                    lf.write(' '.join(hl_text)); lf.flush()
+                elif "Authorization successful" in line or "Video unavailable" in line:
+                    lf.write(line); lf.flush()
             process.stdout.close()
             process.wait()
         
