@@ -127,8 +127,8 @@ def play_video(youtube_url):
         return None
     return create_html_youtube_player(youtube_url)
 
-def oauth_google():
-    return create_html_oauth()
+# def oauth_google():
+#     return create_html_oauth()
 
 AUDIO_EXAMPLES = glob.glob('examples/*.*', recursive=True)
 YOUTUBE_EXAMPLES = ["https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
@@ -226,10 +226,11 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 youtube_player = gr.HTML(render=True)
 
             with gr.Column(scale=4):
-                with gr.Row():
-                    # Submit button
-                    transcribe_video_button = gr.Button("Transcribe", variant="primary")
-                    oauth_button = gr.Button("google.com/device", variant="primary")
+                    with gr.Row():
+                        # Submit button
+                        transcribe_video_button = gr.Button("Transcribe", variant="primary")
+                        # Oauth button
+                        oauth_button = gr.Button("google.com/device", variant="primary", link="https://www.google.com/device")
                     
             with gr.Column(scale=1):
                 # Transcribe
@@ -238,8 +239,6 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 transcribe_video_button.click(process_video, inputs=youtube_url, outputs=output_tab2)
                 # Play
                 play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
-                # Authetification
-                oauth_button.click(oauth_google, outputs=youtube_player)
             with gr.Column(scale=1):
                 Log(log_file, dark=True, xterm_font_size=12, elem_id='mylog')
 
