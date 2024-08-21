@@ -219,17 +219,17 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 youtube_url = gr.Textbox(label="YouTube Link URL",
                         placeholder="https://youtu.be/...")
                 # Display examples
-                gr.Examples(examples=YOUTUBE_EXAMPLES, inputs=youtube_url, examples_per_page=4)
+                gr.Examples(examples=YOUTUBE_EXAMPLES, inputs=youtube_url)
                 # Play button
                 play_video_button = gr.Button("Get Audio from YouTube", variant="primary")
                 # Play youtube
                 youtube_player = gr.HTML(render=True)
 
             with gr.Column(scale=4):
-                # Submit button
-                transcribe_video_button = gr.Button("Transcribe", variant="primary")
-                oauth_button = gr.Button("google.com/device", variant="primary")
-                
+                with gr.Row():
+                    # Submit button
+                    transcribe_video_button = gr.Button("Transcribe", variant="primary")
+                    oauth_button = gr.Button("google.com/device", variant="primary")
             with gr.Column(scale=1):
                 # Transcribe
                 output_tab2 = gr.HTML(render=True)
@@ -239,7 +239,6 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
                 # Authetification
                 oauth_button.click(oauth_google, outputs=youtube_player)
-                
             with gr.Column(scale=1):
                 Log(log_file, dark=True, xterm_font_size=12, elem_id='mylog')
 
