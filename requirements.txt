@@ -16,3 +16,4 @@ einops
 transformers
 numpy==1.26.4
 wandb
+gradio_log
