@@ -230,6 +230,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
                     # Submit button
                     transcribe_video_button = gr.Button("Transcribe", variant="primary")
                     oauth_button = gr.Button("google.com/device", variant="primary")
+                    
             with gr.Column(scale=1):
                 # Transcribe
                 output_tab2 = gr.HTML(render=True)
