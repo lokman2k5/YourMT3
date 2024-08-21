@@ -12,13 +12,15 @@ from ctypes import ArgumentError
 from html_helper import *
 from model_helper import *
 
-# from pytube import YouTube
-from pytubefix import YouTube
 import torchaudio
 import glob
 import gradio as gr
+from gradio_log import Log
+from pathlib import Path
 
-
+# gradio_log
+log_file = 'amt/log.txt'
+Path(log_file).touch()
 
 # @title Load Checkpoint
 model_name = 'YPTF.MoE+Multi (noPS)' # @param ["YMT3+", "YPTF+Single (noPS)", "YPTF+Multi (PS)", "YPTF.MoE+Multi (noPS)", "YPTF.MoE+Multi (PS)"]
@@ -65,44 +67,27 @@ def prepare_media(source_path_or_url: os.PathLike,
     if source_type == 'audio_filepath':
         audio_file = source_path_or_url
     elif source_type == 'youtube_url':
-        # proxy_handler = {"http": "http://108.61.175.7:31802", "https":"http://190.187.201.26:8080", "https":"http://38.54.71.67:80"}
-        # yt = YouTube(source_path_or_url, proxies=proxy_handler) #use_oauth=True, allow_oauth_cache=False)
-        # audio_stream = min(yt.streams.filter(only_audio=True), key=lambda s: s.bitrate)
-        # mp4_file = audio_stream.download(output_path='downloaded') # ./downloaded
-        # audio_file = mp4_file[:-3] + 'mp3'
-        # subprocess.run(['ffmpeg', '-i', mp4_file, '-ac', '1', audio_file])
-        # os.remove(mp4_file)
         # Download from youtube
-        try:
-            # Try PyTube first
-            # proxy_handler = {"http": "http://127.0.0.1:1087", "https":"http://127.0.0.1:1087"}
-            # yt = YouTube(source_path_or_url, proxies=proxy_handler)
-            yt = YouTube(source_path_or_url)
-            audio_stream = min(yt.streams.filter(only_audio=True), key=lambda s: s.bitrate)
-            mp4_file = audio_stream.download(output_path='downloaded') # ./downloaded
-            audio_file = mp4_file[:-3] + 'mp3'
-            subprocess.run(['ffmpeg', '-i', mp4_file, '-ac', '1', audio_file])
-            os.remove(mp4_file)
-        except Exception as e:
-            try:
-                # Try alternative
-                print(f"Failed with PyTube, error: {e}. Trying yt-dlp...")
-                audio_file = './downloaded/yt_audio'
-                # subprocess.run(['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
-                #     '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
-                #     '--force-overwrites', '--cookies', 'amt/src/extras/c.txt'])
-                # subprocess.run(['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
-                #     '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
-                #     '--force-overwrites', '--username', 'mimbresdemo@gmail.com', '--password', '', 
-                #     '-v'])
-                subprocess.run(['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
-                    '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
-                    '--force-overwrites', '--cache-dir', 'amt/src/extras/auth2', 
-                    '-v'])
-                audio_file += '.mp3'
-            except Exception as e:
-                print(f"Alternative downloader failed, error: {e}. Please try again later!")
-                return None
+        with open(log_file, 'w') as lf:
+            audio_file = './downloaded/yt_audio'
+            command = ['yt-dlp', '-x', source_path_or_url, '-f', 'bestaudio',
+                '-o', audio_file, '--audio-format', 'mp3', '--restrict-filenames',
+                '--force-overwrites', '--username', 'oauth2', '--password', '', '-v']
+            if simulate:
+                command = command + ['-s']
+            process = subprocess.Popen(command,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        
+            for line in iter(process.stdout.readline, ''):
+                # Filter out unnecessary messages
+                if "www.google.com/device" in line:
+                    hl_text = line.replace("https://www.google.com/device", "\033[93mhttps://www.google.com/device\x1b[0m").split()
+                    hl_text[-1] = "\x1b[31;1m" + hl_text[-1] + "\x1b[0m"
+                    lf.write(' '.join(hl_text[])); lf.flush()    
+            process.stdout.close()
+            process.wait()
+        
+        audio_file += '.mp3'
     else:
         raise ValueError(source_type)
 
@@ -142,15 +127,15 @@ def play_video(youtube_url):
         return None
     return create_html_youtube_player(youtube_url)
 
-
+def oauth_google():
+    return create_html_oauth()
 
 AUDIO_EXAMPLES = glob.glob('examples/*.*', recursive=True)
-YOUTUBE_EXAMPLES = ["https://www.youtube.com/watch?v=vMboypSkj3c",
-                    "https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
+YOUTUBE_EXAMPLES = ["https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
+                    "https://www.youtube.com/watch?v=vMboypSkj3c",
                     "https://youtu.be/vRd5KEjX8vw?si=b-qw633ZjaX6Uxy5",
-                    "https://youtu.be/EOJ0wH6h3rE?si=a99k6BnSajvNmXcn",
-                    "https://youtu.be/7mjQooXt28o?si=qqmMxCxwqBlLPDI2",
                     "https://youtu.be/bnS-HK_lTHA?si=PQLVAab3QHMbv0S3https://youtu.be/zJB0nnOc7bM?si=EA1DN8nHWJcpQWp_",
+                    "https://youtu.be/7mjQooXt28o?si=qqmMxCxwqBlLPDI2",
                     "https://youtu.be/mIWYTg55h10?si=WkbtKfL6NlNquvT8"]
 
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
@@ -243,6 +228,8 @@ with gr.Blocks(theme=theme, css=css) as demo:
             with gr.Column(scale=4):
                 # Submit button
                 transcribe_video_button = gr.Button("Transcribe", variant="primary")
+                oauth_button = gr.Button("google.com/device", variant="primary")
+                
             with gr.Column(scale=1):
                 # Transcribe
                 output_tab2 = gr.HTML(render=True)
@@ -250,5 +237,10 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 transcribe_video_button.click(process_video, inputs=youtube_url, outputs=output_tab2)
                 # Play
                 play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
+                # Authetification
+                oauth_button.click(oauth_google, outputs=youtube_player)
+                
+            with gr.Column(scale=1):
+                Log(log_file, dark=True, xterm_font_size=12, elem_id='mylog')
 
 demo.launch(debug=True)
