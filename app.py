@@ -61,7 +61,8 @@ model.to("cuda")
 
 def prepare_media(source_path_or_url: os.PathLike,
                   source_type: Literal['audio_filepath', 'youtube_url'],
-                  delete_video: bool = True) -> Dict:
+                  delete_video: bool = True,
+                  simulate = False) -> Dict:
     """prepare media from source path or youtube, and return audio info"""
     # Get audio_file
     if source_type == 'audio_filepath':
@@ -182,7 +183,10 @@ with gr.Blocks(theme=theme, css=css) as demo:
             
             ## Caution:
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
-        
+
+            ## YouTube transcription (**working**):
+            - Press the "Transcribe" button, copy the 6-digit code below, and paste it into "google.com/device". (Only needed once.)
+
             <div style="display: inline-block;">
                 <a href="https://arxiv.org/abs/2407.04822">
                     <img src="https://img.shields.io/badge/arXiv:2407.04822-B31B1B?logo=arxiv&logoColor=fff&style=plastic" alt="arXiv Badge"/>
