@@ -175,8 +175,8 @@ with gr.Blocks(theme=theme, css=css) as demo:
             f"""
             ## 🎶YourMT3+: Multi-instrument Music Transcription with Enhanced Transformer Architectures and Cross-dataset Stem Augmentation
             - Model name: `{model_name}`
-                <▶model details◀>
-                <summary>(Details)</summary>
+                <details>
+                <summary>▶model details◀</summary>
                      
                 | **Component**            | **Details**                                      |
                 |--------------------------|--------------------------------------------------|
