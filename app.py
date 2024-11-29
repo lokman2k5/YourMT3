@@ -196,7 +196,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             ## Caution:
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
 
-            ## YouTube transcription (working 🚀):
+            ## YouTube transcription (Sorry!! Currently not working. Blocked by YouTube again..):
             - Press the `Transcribe` button, copy the 12-digit code below, and paste it into `google.com/device`. (Only needed once.)
 
             <div style="display: inline-block;">
