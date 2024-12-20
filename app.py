@@ -139,11 +139,14 @@ def play_video(youtube_url):
 
 AUDIO_EXAMPLES = glob.glob('examples/*.*', recursive=True)
 YOUTUBE_EXAMPLES = ["https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
-                    "https://www.youtube.com/watch?v=vMboypSkj3c",
-                    "https://youtu.be/vRd5KEjX8vw?si=b-qw633ZjaX6Uxy5",
-                    "https://youtu.be/bnS-HK_lTHA?si=PQLVAab3QHMbv0S3https://youtu.be/zJB0nnOc7bM?si=EA1DN8nHWJcpQWp_",
-                    "https://youtu.be/7mjQooXt28o?si=qqmMxCxwqBlLPDI2",
-                    "https://youtu.be/mIWYTg55h10?si=WkbtKfL6NlNquvT8"]
+                    "https://www.youtube.com/watch?v=bnS-HK_lTHA",
+                    "https://youtu.be/OXXRoa1U6xU?si=dpYMun4LjZHNydSb"]
+# YOUTUBE_EXAMPLES = ["https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
+#                     "https://www.youtube.com/watch?v=vMboypSkj3c",
+#                     "https://youtu.be/vRd5KEjX8vw?si=b-qw633ZjaX6Uxy5",
+#                     "https://youtu.be/bnS-HK_lTHA?si=PQLVAab3QHMbv0S3https://youtu.be/zJB0nnOc7bM?si=EA1DN8nHWJcpQWp_",
+#                     "https://youtu.be/7mjQooXt28o?si=qqmMxCxwqBlLPDI2",
+#                     "https://youtu.be/mIWYTg55h10?si=WkbtKfL6NlNquvT8"]
 
 theme = gr.Theme.from_hub("gradio/dracula_revamped")
 theme.text_md = '10px'
@@ -196,7 +199,7 @@ with gr.Blocks(theme=theme, css=css) as demo:
             ## Caution:
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
 
-            ## YouTube transcription (Sorry!! Currently not working. Blocked by YouTube again..):
+            ## YouTube transcription (Sorry!! YouTube blocked HuggingFace IP. We display a few pre-transcribed examples in the below!):
             - Press the `Transcribe` button, copy the 12-digit code below, and paste it into `google.com/device`. (Only needed once.)
 
             <div style="display: inline-block;">
@@ -252,7 +255,8 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 # Transcribe
                 output_tab2 = gr.HTML(render=True)
                 # video_output = gr.Text(label="Video Info")
-                transcribe_video_button.click(process_video, inputs=youtube_url, outputs=output_tab2)
+                transcribe_video_button.click(process_audio_yt_temp, inputs=youtube_url, outputs=output_tab2)
+                # transcribe_video_button.click(process_video, inputs=youtube_url, outputs=output_tab2)
                 # Play
                 play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
             with gr.Column(scale=1):
