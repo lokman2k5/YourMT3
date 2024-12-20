@@ -120,6 +120,21 @@ def process_audio(audio_filepath):
     midifile = to_data_url(midifile)
     return create_html_from_midi(midifile) # html midiplayer
 
+# This is a temporary function for using pre-transcribed midi
+@spaces.GPU
+def process_audio_yt_temp(youtube_url):
+    if youtube_url is None:
+        return None
+    elif youtube_url == "https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg":
+        midifile = "./mid/Free Jazz Intro Music - Piano Sway (Intro B - 10 seconds) - OurMusicBox.mid"
+    elif youtube_url == "https://www.youtube.com/watch?v=bnS-HK_lTHA":
+        midifile = "./mid/Naomi Scott   Speechless from Aladdin Official Video Sony vevo Music.mid"
+    elif youtube_url == "https://youtu.be/OXXRoa1U6xU?si=dpYMun4LjZHNydSb":
+        midifile = "./mid/Mozart_Sonata_for_Piano_and_Violin_(getmp3.pro).mid"
+    midifile = to_data_url(midifile)
+    return create_html_from_midi(midifile) # html midiplayer
+
+
 @spaces.GPU
 def process_video(youtube_url):
     if 'youtu' not in youtube_url:
