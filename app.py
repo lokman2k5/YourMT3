@@ -235,17 +235,6 @@ with gr.Blocks(theme=theme, css=css) as demo:
             """)
 
     with gr.Group():
-        with gr.Tab("Upload audio"):
-            # Input
-            audio_input = gr.Audio(label="Record Audio", type="filepath",
-                                show_share_button=True, show_download_button=True)
-            # Display examples
-            gr.Examples(examples=AUDIO_EXAMPLES, inputs=audio_input)
-            # Submit button
-            transcribe_audio_button = gr.Button("Transcribe", variant="primary")
-            # Transcribe
-            output_tab1 = gr.HTML()
-            transcribe_audio_button.click(process_audio, inputs=audio_input, outputs=output_tab1)
 
         with gr.Tab("From YouTube"):
             with gr.Column(scale=4):
@@ -276,5 +265,17 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
             with gr.Column(scale=1):
                 Log(log_file, dark=True, xterm_font_size=12, elem_id='mylog')
+
+        with gr.Tab("Upload audio"):
+            # Input
+            audio_input = gr.Audio(label="Record Audio", type="filepath",
+                                show_share_button=True, show_download_button=True)
+            # Display examples
+            gr.Examples(examples=AUDIO_EXAMPLES, inputs=audio_input)
+            # Submit button
+            transcribe_audio_button = gr.Button("Transcribe", variant="primary")
+            # Transcribe
+            output_tab1 = gr.HTML()
+            transcribe_audio_button.click(process_audio, inputs=audio_input, outputs=output_tab1)
 
 demo.launch(debug=True)
