@@ -116,7 +116,7 @@ def load_model_checkpoint(args=None, device='cpu'):
         eval_subtask_key=args.eval_subtask_key,
         write_output_dir=dir_info["lightning_dir"] if args.write_model_output or args.test_octave_shift else None
         ).to(device)
-    checkpoint = torch.load(dir_info["last_ckpt_path"], map_location=device)
+    checkpoint = torch.load(dir_info["last_ckpt_path"], map_location=device, weights_only=False)
     state_dict = checkpoint['state_dict']
     new_state_dict = {k: v for k, v in state_dict.items() if 'pitchshift' not in k}
     model.load_state_dict(new_state_dict, strict=False)
