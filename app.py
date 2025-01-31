@@ -215,8 +215,8 @@ with gr.Blocks(theme=theme, css=css) as demo:
             - For acadmic reproduction purpose, we strongly recommend to use [Colab Demo](https://colab.research.google.com/drive/1AgOVEBfZknDkjmSRA7leoa81a2vrnhBG?usp=sharing) with multiple checkpoints.
 
             ## YouTube transcription (Sorry!! YouTube blocked HuggingFace IP. We display a few pre-transcribed examples in the below!):
-            - Press the `Transcribe` button, copy the 12-digit code below, and paste it into `google.com/device`. (Only needed once.)
-
+            - Select one from the `Examples`, click `Get Audio from YouTube`, and then press `Transcribe`.
+            
             <div style="display: inline-block;">
                 <a href="https://arxiv.org/abs/2407.04822">
                     <img src="https://img.shields.io/badge/arXiv:2407.04822-B31B1B?logo=arxiv&logoColor=fff&style=plastic" alt="arXiv Badge"/>
