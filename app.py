@@ -154,7 +154,7 @@ def play_video(youtube_url):
 
 AUDIO_EXAMPLES = glob.glob('examples/*.*', recursive=True)
 YOUTUBE_EXAMPLES = ["https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
-                    "https://www.youtube.com/watch?v=bnS-HK_lTHA",
+                    "https://youtu.be/mw5VIEIvuMI?si=Dp9UFVw00Tl8CXe2",
                     "https://youtu.be/OXXRoa1U6xU?si=dpYMun4LjZHNydSb"]
 # YOUTUBE_EXAMPLES = ["https://youtu.be/5vJBhdjvVcE?si=s3NFG_SlVju0Iklg",
 #                     "https://www.youtube.com/watch?v=vMboypSkj3c",
