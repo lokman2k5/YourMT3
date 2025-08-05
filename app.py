@@ -112,11 +112,11 @@ def prepare_media(source_path_or_url: os.PathLike,
         }
 
 @spaces.GPU
-def process_audio(audio_filepath):
+def process_audio(audio_filepath, instrument_hint=None):
     if audio_filepath is None:
         return None
     audio_info = prepare_media(audio_filepath, source_type='audio_filepath')
-    midifile = transcribe(model, audio_info)
+    midifile = transcribe(model, audio_info, instrument_hint)
     midifile = to_data_url(midifile)
     return create_html_from_midi(midifile) # html midiplayer
 
@@ -136,11 +136,11 @@ def process_audio_yt_temp(youtube_url):
 
 
 @spaces.GPU
-def process_video(youtube_url):
+def process_video(youtube_url, instrument_hint=None):
     if 'youtu' not in youtube_url:
         return None
     audio_info = prepare_media(youtube_url, source_type='youtube_url')
-    midifile = transcribe(model, audio_info)
+    midifile = transcribe(model, audio_info, instrument_hint)
     midifile = to_data_url(midifile)
     return create_html_from_midi(midifile) # html midiplayer
 
@@ -249,17 +249,43 @@ with gr.Blocks(theme=theme, css=css) as demo:
                 youtube_player = gr.HTML(render=True)
 
             with gr.Column(scale=4):
-                    with gr.Row():
-                        # Submit button
-                        transcribe_video_button = gr.Button("Transcribe", variant="primary")
-                        # Oauth button
-                        oauth_button = gr.Button("google.com/device", variant="primary", link="https://www.google.com/device")
+                # Instrument selection for YouTube
+                youtube_instrument_selector = gr.Dropdown(
+                    choices=["Auto (detect all instruments)", "Vocals/Singing", "Guitar", "Piano", 
+                            "Violin", "Drums", "Bass", "Saxophone", "Flute"],
+                    value="Auto (detect all instruments)",
+                    label="Target Instrument",
+                    info="Choose the specific instrument you want to transcribe"
+                )
+                with gr.Row():
+                    # Submit button
+                    transcribe_video_button = gr.Button("Transcribe", variant="primary")
+                    # Oauth button
+                    oauth_button = gr.Button("google.com/device", variant="primary", link="https://www.google.com/device")
                     
             with gr.Column(scale=1):
                 # Transcribe
                 output_tab2 = gr.HTML(render=True)
                 # video_output = gr.Text(label="Video Info")
-                transcribe_video_button.click(process_audio_yt_temp, inputs=youtube_url, outputs=output_tab2)
+                
+                def process_youtube_with_instrument(url, instrument_choice):
+                    # Map UI choices to internal instrument hints  
+                    instrument_map = {
+                        "Auto (detect all instruments)": None,
+                        "Vocals/Singing": "vocals",
+                        "Guitar": "guitar",
+                        "Piano": "piano", 
+                        "Violin": "violin",
+                        "Drums": "drums",
+                        "Bass": "bass",
+                        "Saxophone": "saxophone",
+                        "Flute": "flute"
+                    }
+                    instrument_hint = instrument_map.get(instrument_choice, None)
+                    # For now, using the temp function - you can replace with process_video when ready
+                    return process_audio_yt_temp(url)  # TODO: Replace with process_video(url, instrument_hint)
+                
+                transcribe_video_button.click(process_youtube_with_instrument, inputs=[youtube_url, youtube_instrument_selector], outputs=output_tab2)
                 # transcribe_video_button.click(process_video, inputs=youtube_url, outputs=output_tab2)
                 # Play
                 play_video_button.click(play_video, inputs=youtube_url, outputs=youtube_player)
@@ -270,12 +296,39 @@ with gr.Blocks(theme=theme, css=css) as demo:
             # Input
             audio_input = gr.Audio(label="Record Audio", type="filepath",
                                 show_share_button=True, show_download_button=True)
+            
+            # Instrument selection
+            instrument_selector = gr.Dropdown(
+                choices=["Auto (detect all instruments)", "Vocals/Singing", "Guitar", "Piano", 
+                        "Violin", "Drums", "Bass", "Saxophone", "Flute"],
+                value="Auto (detect all instruments)",
+                label="Target Instrument",
+                info="Choose the specific instrument you want to transcribe, or 'Auto' for all instruments"
+            )
+            
             # Display examples
             gr.Examples(examples=AUDIO_EXAMPLES, inputs=audio_input)
             # Submit button
             transcribe_audio_button = gr.Button("Transcribe", variant="primary")
             # Transcribe
             output_tab1 = gr.HTML()
-            transcribe_audio_button.click(process_audio, inputs=audio_input, outputs=output_tab1)
+            
+            def process_with_instrument(audio_file, instrument_choice):
+                # Map UI choices to internal instrument hints
+                instrument_map = {
+                    "Auto (detect all instruments)": None,
+                    "Vocals/Singing": "vocals",
+                    "Guitar": "guitar", 
+                    "Piano": "piano",
+                    "Violin": "violin",
+                    "Drums": "drums",
+                    "Bass": "bass",
+                    "Saxophone": "saxophone",
+                    "Flute": "flute"
+                }
+                instrument_hint = instrument_map.get(instrument_choice, None)
+                return process_audio(audio_file, instrument_hint)
+            
+            transcribe_audio_button.click(process_with_instrument, inputs=[audio_input, instrument_selector], outputs=output_tab1)
 
 demo.launch(debug=True)

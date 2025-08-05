@@ -20,6 +20,122 @@ from utils.utils import write_model_output_as_midi, write_err_cnt_as_json
 from model.ymt3 import YourMT3
 
 
+def create_instrument_task_tokens(model, instrument_hint, n_segments):
+    """Create task tokens for instrument-specific transcription conditioning.
+    
+    Args:
+        model: YourMT3 model instance
+        instrument_hint: String indicating desired instrument ('vocals', 'guitar', 'piano', etc.)
+        n_segments: Number of audio segments
+        
+    Returns:
+        torch.LongTensor: Task tokens for conditioning the model
+    """
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
+    # Map instrument hints to task events
+    instrument_mapping = {
+        'vocals': 'transcribe_singing',
+        'singing': 'transcribe_singing', 
+        'voice': 'transcribe_singing',
+        'drums': 'transcribe_drum',
+        'drum': 'transcribe_drum',
+        'percussion': 'transcribe_drum'
+    }
+    
+    # Get the appropriate task event, default to 'transcribe_all'
+    task_event_name = instrument_mapping.get(instrument_hint.lower(), 'transcribe_all')
+    
+    # Create task tokens using the model's task manager
+    if hasattr(model.task_manager, 'task'):
+        task_config = model.task_manager.task
+        if 'eval_subtask_prefix' in task_config:
+            # Use existing subtask prefixes if available
+            if task_event_name == 'transcribe_singing' and 'singing-only' in task_config['eval_subtask_prefix']:
+                prefix_tokens = task_config['eval_subtask_prefix']['singing-only']
+            elif task_event_name == 'transcribe_drum' and 'drum-only' in task_config['eval_subtask_prefix']:
+                prefix_tokens = task_config['eval_subtask_prefix']['drum-only']
+            else:
+                prefix_tokens = task_config['eval_subtask_prefix'].get('default', [])
+        else:
+            # Create basic task tokens
+            from utils.note_event_dataclasses import Event
+            prefix_tokens = [Event(task_event_name, 0), Event("task", 0)]
+    else:
+        # Fallback for basic models
+        from utils.note_event_dataclasses import Event
+        prefix_tokens = [Event(task_event_name, 0), Event("task", 0)]
+    
+    # Convert to token IDs
+    if prefix_tokens:
+        try:
+            tokenizer = model.task_manager.tokenizer
+            task_token_ids = [tokenizer.codec.encode_event(event) for event in prefix_tokens]
+            
+            # Create task token array: (n_segments, 1, task_len) for single channel
+            task_len = len(task_token_ids)
+            task_tokens = torch.zeros((n_segments, 1, task_len), dtype=torch.long, device=device)
+            for i in range(n_segments):
+                task_tokens[i, 0, :] = torch.tensor(task_token_ids, dtype=torch.long)
+            
+            return task_tokens
+        except Exception as e:
+            print(f"Warning: Could not create task tokens for {instrument_hint}: {e}")
+    
+    return None
+
+
+def filter_instrument_consistency(pred_notes, primary_instrument=None, confidence_threshold=0.7):
+    """Post-process transcribed notes to maintain instrument consistency.
+    
+    Args:
+        pred_notes: List of Note objects from transcription
+        primary_instrument: Target instrument program number (if known)
+        confidence_threshold: Threshold for maintaining instrument consistency
+        
+    Returns:
+        List of filtered Note objects
+    """
+    if not pred_notes:
+        return pred_notes
+    
+    # Count instrument occurrences to find dominant instrument
+    instrument_counts = {}
+    total_notes = len(pred_notes)
+    
+    for note in pred_notes:
+        program = getattr(note, 'program', 0)
+        instrument_counts[program] = instrument_counts.get(program, 0) + 1
+    
+    # Determine primary instrument
+    if primary_instrument is None:
+        primary_instrument = max(instrument_counts, key=instrument_counts.get)
+    
+    primary_count = instrument_counts.get(primary_instrument, 0)
+    primary_ratio = primary_count / total_notes if total_notes > 0 else 0
+    
+    # If primary instrument is dominant enough, filter out other instruments
+    if primary_ratio >= confidence_threshold:
+        filtered_notes = []
+        for note in pred_notes:
+            note_program = getattr(note, 'program', 0)
+            if note_program == primary_instrument:
+                filtered_notes.append(note)
+            else:
+                # Convert note to primary instrument
+                note_copy = note.__class__(
+                    start=note.start,
+                    end=note.end, 
+                    pitch=note.pitch,
+                    velocity=note.velocity,
+                    program=primary_instrument
+                )
+                filtered_notes.append(note_copy)
+        return filtered_notes
+    
+    return pred_notes
+
+
 
 
 def load_model_checkpoint(args=None, device='cpu'):
@@ -123,7 +239,7 @@ def load_model_checkpoint(args=None, device='cpu'):
     return model.eval() # load checkpoint on cpu first
 
 
-def transcribe(model, audio_info):
+def transcribe(model, audio_info, instrument_hint=None):
     t = Timer()
 
     # Converting Audio
@@ -138,7 +254,13 @@ def transcribe(model, audio_info):
 
     # Inference
     t.start()
-    pred_token_arr, _ = model.inference_file(bsz=8, audio_segments=audio_segments)
+    
+    # Create task tokens for instrument-specific transcription
+    task_tokens = None
+    if instrument_hint:
+        task_tokens = create_instrument_task_tokens(model, instrument_hint, audio_segments.shape[0])
+    
+    pred_token_arr, _ = model.inference_file(bsz=8, audio_segments=audio_segments, task_token_array=task_tokens)
     t.stop(); t.print_elapsed_time("model inference");
 
     # Post-processing
@@ -156,6 +278,10 @@ def transcribe(model, audio_info):
         pred_notes_in_file.append(pred_notes_ch)
         n_err_cnt += n_err_cnt_ch
     pred_notes = mix_notes(pred_notes_in_file)  # This is the mixed notes from all channels
+    
+    # Apply instrument consistency filter if instrument hint was provided
+    if instrument_hint:
+        pred_notes = filter_instrument_consistency(pred_notes, confidence_threshold=0.6)
 
     # Write MIDI
     write_model_output_as_midi(pred_notes, './',
